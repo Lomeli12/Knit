@@ -20,7 +20,16 @@ public abstract class AbstractMessage<T extends AbstractMessage> implements BiCo
 
     public abstract void handle(PacketContext context, T message);
 
-    public abstract EnvType getSide();
+    /**
+     * Side this packet is being sent to.
+     * <br /><br />
+     * Example:
+     * <br /> Server -> Client = EnvType.CLIENT
+     * <br /> Client -> Server = EnvType.SERVER
+     * <br />
+     * @return The side this packet is being sent to.
+     */
+    public abstract EnvType getTargetSide();
 
     @Override
     public void accept(PacketContext context, PacketByteBuf byteBuf) {

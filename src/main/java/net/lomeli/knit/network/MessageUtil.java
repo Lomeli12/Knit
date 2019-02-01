@@ -13,9 +13,9 @@ import net.minecraft.util.PacketByteBuf;
 // Based off of TheOneProbe's packet handling by McJty
 public class MessageUtil {
     public static void registerMessage(AbstractMessage message) {
-        if (message.getSide() == EnvType.CLIENT)
+        if (message.getTargetSide() == EnvType.CLIENT)
             CustomPayloadPacketRegistry.CLIENT.register(message.getMessageID(), message);
-        else if (message.getSide() == EnvType.SERVER)
+        else if (message.getTargetSide() == EnvType.SERVER)
             CustomPayloadPacketRegistry.SERVER.register(message.getMessageID(), message);
     }
 

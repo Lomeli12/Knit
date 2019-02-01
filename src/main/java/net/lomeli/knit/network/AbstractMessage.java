@@ -16,7 +16,7 @@ public abstract class AbstractMessage<T extends AbstractMessage> implements BiCo
 
     public abstract void fromBytes(PacketByteBuf byteBuf);
 
-    public abstract Identifier getPacketID();
+    public abstract Identifier getMessageID();
 
     public abstract void handle(PacketContext context, T message);
 

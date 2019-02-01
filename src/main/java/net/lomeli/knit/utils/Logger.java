@@ -4,16 +4,20 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 public class Logger {
-    private org.apache.logging.log4j.Logger logger;
+    private static final String PREFIX_FORMAT = "[%s]: ";
+
+    private final org.apache.logging.log4j.Logger logger;
+    private final String name;
 
     public Logger(String name) {
-        logger = LogManager.getLogger(name);
+        this.logger = LogManager.getLogger(name);
+        this.name = name;
     }
 
     public void log(Level level, Object msg, Object...args) {
         if (args != null && args.length > 0)
-            logger.log(level, String.format(msg.toString(), args));
-        else logger.log(level, msg.toString());
+            logger.log(level, getPrefix() + String.format(msg.toString(), args));
+        else logger.log(level, getPrefix() + msg.toString());
     }
 
     public void info(Object msg, Object...args) {
@@ -36,5 +40,9 @@ public class Logger {
 
     public void debug(Object msg, Object...args) {
         log(Level.DEBUG, msg, args);
+    }
+
+    private String getPrefix() {
+        return String.format(PREFIX_FORMAT, name);
     }
 }

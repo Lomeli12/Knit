@@ -1,14 +1,13 @@
 package net.lomeli.knit.network;
 
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.networking.PacketContext;
+import net.fabricmc.fabric.api.network.PacketConsumer;
+import net.fabricmc.fabric.api.network.PacketContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.PacketByteBuf;
 
-import java.util.function.BiConsumer;
-
 // Based off of TheOneProbe's packet handling by McJty
-public abstract class AbstractMessage<T extends AbstractMessage> implements BiConsumer<PacketContext, PacketByteBuf> {
+public abstract class AbstractMessage<T extends AbstractMessage> implements PacketConsumer {
 
     public abstract T createMessage();
 
@@ -27,6 +26,7 @@ public abstract class AbstractMessage<T extends AbstractMessage> implements BiCo
      * <br /> Server -> Client = EnvType.CLIENT
      * <br /> Client -> Server = EnvType.SERVER
      * <br />
+     *
      * @return The side this packet is being sent to.
      */
     public abstract EnvType getTargetSide();

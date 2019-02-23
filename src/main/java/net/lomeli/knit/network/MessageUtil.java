@@ -10,10 +10,10 @@ import net.minecraft.util.PacketByteBuf;
 
 // Based off of TheOneProbe's packet handling by McJty
 public class MessageUtil {
-    public static void registerMessage(AbstractMessage message) {
-        if (message.getTargetSide() == EnvType.CLIENT)
+    public static void registerMessage(AbstractMessage message, EnvType side) {
+        if (side == EnvType.CLIENT)
             ClientSidePacketRegistryImpl.INSTANCE.register(message.getMessageID(), message);
-        else if (message.getTargetSide() == EnvType.SERVER)
+        else if (side == EnvType.SERVER)
             ServerSidePacketRegistryImpl.INSTANCE.register(message.getMessageID(), message);
     }
 

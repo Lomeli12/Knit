@@ -1,6 +1,5 @@
 package net.lomeli.knit.network;
 
-import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.minecraft.util.Identifier;
@@ -18,18 +17,6 @@ public abstract class AbstractMessage<T extends AbstractMessage> implements Pack
     public abstract Identifier getMessageID();
 
     public abstract void handle(PacketContext context, T message);
-
-    /**
-     * Side this packet is being sent to.
-     * <br /><br />
-     * Example:
-     * <br /> Server -> Client = EnvType.CLIENT
-     * <br /> Client -> Server = EnvType.SERVER
-     * <br />
-     *
-     * @return The side this packet is being sent to.
-     */
-    public abstract EnvType getTargetSide();
 
     @Override
     public void accept(PacketContext context, PacketByteBuf byteBuf) {

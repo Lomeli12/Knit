@@ -3,6 +3,8 @@
   "package": "net.lomeli.knit.mixin.client",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ClientConnectionMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

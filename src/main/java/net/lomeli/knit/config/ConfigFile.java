@@ -4,7 +4,7 @@ import blue.endless.jankson.Jankson;
 import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.impl.SyntaxError;
 import com.google.common.base.Strings;
-import net.fabricmc.loader.FabricLoader;
+import net.fabricmc.loader.api.FabricLoader;
 import net.lomeli.knit.Knit;
 import net.lomeli.knit.utils.Logger;
 import org.apache.commons.io.FileUtils;
@@ -19,7 +19,7 @@ import java.nio.charset.Charset;
 public class ConfigFile {
     private static final Logger CONFIG_LOG = new Logger(Knit.MOD_NAME + "/Config");
     private static final Jankson JANKSON = Jankson.builder().build();
-    private static final File CONFIG_DIR = FabricLoader.INSTANCE.getConfigDirectory();
+    private static final File CONFIG_DIR = FabricLoader.getInstance().getConfigDirectory();
 
     private String modid;
     private Class<?> configClass;

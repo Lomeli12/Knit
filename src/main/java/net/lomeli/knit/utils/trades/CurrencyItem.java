@@ -12,9 +12,10 @@ public class CurrencyItem {
 
     /**
      * Item that villager will buy.
-     * @param provider Item that is being bought.
+     *
+     * @param provider  Item that is being bought.
      * @param minAmount The minimum amount of that item required.
-     * @param range The range of the amount. This is added onto the minimum amount.
+     * @param range     The range of the amount. This is added onto the minimum amount.
      */
     public CurrencyItem(ItemProvider provider, int minAmount, int range) {
         this.item = provider;

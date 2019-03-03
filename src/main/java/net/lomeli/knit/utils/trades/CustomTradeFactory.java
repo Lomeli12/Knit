@@ -15,7 +15,7 @@ public class CustomTradeFactory implements Trades.Factory {
     private final CurrencyItem currencyTwo;
 
     /**
-     * @param sellItem Item being sold.
+     * @param sellItem    Item being sold.
      * @param currencyOne First item the villager will buy. Cannot be null.
      * @param currencyTwo Second item the villager will buy. Nullable.
      */

@@ -11,6 +11,6 @@ public class Knit implements ModInitializer {
 
     @Override
     public void onInitialize() {
-		log = new Logger(MOD_NAME);
+        log = new Logger(MOD_NAME);
     }
 }

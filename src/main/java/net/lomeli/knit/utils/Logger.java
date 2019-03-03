@@ -14,31 +14,31 @@ public class Logger {
         this.name = name;
     }
 
-    private void log(Level level, Object msg, Object...args) {
+    private void log(Level level, Object msg, Object... args) {
         if (args != null && args.length > 0)
             logger.log(level, getPrefix() + msg.toString(), args);
         else logger.log(level, getPrefix() + msg.toString());
     }
 
-    public void info(Object msg, Object...args) {
+    public void info(Object msg, Object... args) {
         log(Level.INFO, msg, args);
     }
 
-    public void warn(Object msg, Object...args) {
+    public void warn(Object msg, Object... args) {
         log(Level.WARN, msg, args);
     }
 
-    public void error(Object msg, Object...args) {
+    public void error(Object msg, Object... args) {
         log(Level.ERROR, msg, args);
     }
 
-    public void exception(Object msg, Exception ex, Object...args) {
+    public void exception(Object msg, Exception ex, Object... args) {
         if (args != null && args.length > 0)
             logger.log(Level.ERROR, String.format(msg.toString(), args), ex);
         else logger.log(Level.ERROR, msg.toString(), ex);
     }
 
-    public void debug(Object msg, Object...args) {
+    public void debug(Object msg, Object... args) {
         log(Level.DEBUG, msg, args);
     }
 

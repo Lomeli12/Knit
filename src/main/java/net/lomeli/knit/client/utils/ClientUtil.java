@@ -13,7 +13,8 @@ public class ClientUtil {
         try {
             return InputUtil.isKeyPressed(MinecraftClient.getInstance().window.getHandle(), code);
         } catch (Exception e) {
-            return false;
+            // no op
         }
+        return false;
     }
 }

@@ -33,9 +33,9 @@ public class ObfUtil {
                 if (mValue != null)
                     value = (T) mValue;
             } catch (IllegalAccessException ex) {
-                Knit.log.exception("Could not access %1$s() in class %2$s", ex, method.getName(), clazz.getName());
+                Knit.log.exception("Could not access {}() in class {}", ex, method.getName(), clazz.getName());
             } catch (InvocationTargetException ex) {
-                Knit.log.error("Could not invoke %1$s() in class %2$s", method.getName(), clazz.getName());
+                Knit.log.error("Could not invoke {}() in class {}", method.getName(), clazz.getName());
             }
             if (!flag) method.setAccessible(false);
         }
@@ -51,9 +51,9 @@ public class ObfUtil {
             try {
                 value = (T) method.invoke(instance, parameters);
             } catch (IllegalAccessException ex) {
-                Knit.log.exception("Could not access %1$s()", ex, method.getName());
+                Knit.log.exception("Could not access {}()", ex, method.getName());
             } catch (InvocationTargetException ex) {
-                Knit.log.error("Could not invoke %1$s()", method.getName());
+                Knit.log.error("Could not invoke {}()", method.getName());
             }
             if (!flag) method.setAccessible(false);
         }
@@ -79,9 +79,9 @@ public class ObfUtil {
                 } catch (NoSuchMethodException ignored) {
                 }
             }
-            Knit.log.error("Could not find method in class(%s) with the following names: ", clazz.getName());
+            Knit.log.error("Could not find method in class({}) with the following names: ", clazz.getName());
             for (String name : names)
-                Knit.log.error("- %s", name);
+                Knit.log.error("- {}", name);
         }
         return null;
     }

@@ -33,9 +33,9 @@ public class ConfigFile {
     }
 
     public void loadConfig() {
-        CONFIG_LOG.info("Loading config for %s.", modid);
+        CONFIG_LOG.info("Loading config for {}.", modid);
         if (!CONFIG_DIR.exists() || !configFile.exists() || !configFile.isFile()) {
-            CONFIG_LOG.info("Creating config for %s.", modid);
+            CONFIG_LOG.info("Creating config for {}.", modid);
             saveConfig();
         }
 
@@ -43,13 +43,13 @@ public class ConfigFile {
             JsonObject configJson = JANKSON.load(configFile);
             readJson(configJson);
         } catch (IOException ex) {
-            CONFIG_LOG.exception("Failed to load config file %s.", ex, configFile.getName());
+            CONFIG_LOG.exception("Failed to load config file {}.", ex, configFile.getName());
         } catch (SyntaxError ex) {
-            CONFIG_LOG.exception("Syntax error in config file %s.", ex, configFile.getName());
+            CONFIG_LOG.exception("Syntax error in config file {}.", ex, configFile.getName());
         }
 
         if (hasChanges) {
-            CONFIG_LOG.info("Writing changes to %s's config file.", modid);
+            CONFIG_LOG.info("Writing changes to {}'s config file.", modid);
             saveConfig();
         }
     }
@@ -107,7 +107,7 @@ public class ConfigFile {
             try {
                 FileUtils.writeStringToFile(configFile, data, Charset.forName("UTF-8"));
             } catch (IOException ex) {
-                CONFIG_LOG.exception("Failed to write config file %s", ex, configFile.getName());
+                CONFIG_LOG.exception("Failed to write config file {}", ex, configFile.getName());
             }
         }
     }
@@ -139,7 +139,7 @@ public class ConfigFile {
         try {
             parent.putDefault(name, field.get(null), comment);
         } catch (IllegalAccessException ex) {
-            CONFIG_LOG.exception("Could not write config value for %s", ex, name);
+            CONFIG_LOG.exception("Could not write config value for {}", ex, name);
         } catch (NullPointerException ex) {
             CONFIG_LOG.exception("", ex);
         }

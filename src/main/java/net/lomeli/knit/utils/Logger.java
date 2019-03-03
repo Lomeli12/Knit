@@ -14,9 +14,9 @@ public class Logger {
         this.name = name;
     }
 
-    public void log(Level level, Object msg, Object...args) {
+    private void log(Level level, Object msg, Object...args) {
         if (args != null && args.length > 0)
-            logger.log(level, getPrefix() + String.format(msg.toString(), args));
+            logger.log(level, getPrefix() + msg.toString(), args);
         else logger.log(level, getPrefix() + msg.toString());
     }
 

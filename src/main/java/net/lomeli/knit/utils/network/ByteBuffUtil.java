@@ -1,4 +1,4 @@
-package net.lomeli.knit.network;
+package net.lomeli.knit.utils.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.Identifier;

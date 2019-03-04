@@ -1,4 +1,4 @@
-package net.lomeli.knit.network;
+package net.lomeli.knit.utils.network;
 
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;

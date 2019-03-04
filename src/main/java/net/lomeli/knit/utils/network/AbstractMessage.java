@@ -1,4 +1,4 @@
-package net.lomeli.knit.network;
+package net.lomeli.knit.utils.network;
 
 import net.fabricmc.fabric.api.network.PacketConsumer;
 import net.fabricmc.fabric.api.network.PacketContext;

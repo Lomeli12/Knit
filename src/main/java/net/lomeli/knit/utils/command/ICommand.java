@@ -1,4 +1,4 @@
-package net.lomeli.knit.command;
+package net.lomeli.knit.utils.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;

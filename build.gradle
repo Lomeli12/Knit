@@ -5,11 +5,13 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '4.0.3'
 }
 
+apply plugin: 'maven-publish'
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "Knit"
-group = "net.lomeli.knit"
+group = "net.lomeli"
 version = "1.0.0"
 
 minecraft {
@@ -17,7 +19,6 @@ minecraft {
 
 repositories {
     maven { url "http://repo.elytradev.com/" }
-    maven { url "https://maven.lomeli12.net/"}
 }
 
 dependencies {
@@ -44,11 +45,36 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 shadowJar {
     relocate 'blue.endless.jankson', 'net.lomeli.knit.repackage.blue.endless.jankson'
-    classifier = "shadow"
+    classifier = "universal"
     configurations = [project.configurations.shadow]
 }
 
 remapJar {
     dependsOn shadowJar
     jar = shadowJar.archivePath
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = archivesBaseName
+            version = "${mcVersion}-${version}"
+            from components.java
+            artifact tasks.shadowJar
+            artifact tasks.sourcesJar
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            url "https://maven.lomeli12.net/"
+            credentials {
+                username "${mavenUser}"
+                password "${mavenPass}"
+            }
+        }
+    }
 }

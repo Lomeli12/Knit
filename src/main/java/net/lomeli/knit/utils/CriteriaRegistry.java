@@ -4,14 +4,13 @@ import com.google.common.collect.Maps;
 import net.minecraft.advancement.criterion.Criterion;
 import net.minecraft.util.Identifier;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
 public class CriteriaRegistry {
-    private static final Map<Identifier, Criterion> CUSTOM_CRITERIA = Maps.newHashMap();
+    private static final Map<Identifier, Criterion<?>> CUSTOM_CRITERIA = Maps.newHashMap();
 
-    public static <T extends Criterion> T registerCriterion(T criterion) {
+    public static <T extends Criterion<?>> T registerCriterion(T criterion) {
         if (CUSTOM_CRITERIA.containsKey(criterion.getId()))
             throw new IllegalArgumentException("Duplicate custom criterion id " + criterion.getId());
         else {
@@ -20,11 +19,7 @@ public class CriteriaRegistry {
         }
     }
 
-    public static Collection<Criterion> getAllCriteria() {
-        return Collections.unmodifiableCollection(CUSTOM_CRITERIA.values());
-    }
-
-    public static Criterion getCriterionByID(Identifier id) {
-        return CUSTOM_CRITERIA.get(id);
+    public static Map<Identifier, Criterion<?>> getAllCriteria() {
+        return Collections.unmodifiableMap(CUSTOM_CRITERIA);
     }
 }

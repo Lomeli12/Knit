@@ -5,6 +5,8 @@ import net.minecraft.village.Trader;
 import net.minecraft.village.TraderRecipe;
 import net.minecraft.village.Trades;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class CustomTradeFactory implements Trades.Factory {
@@ -17,7 +19,7 @@ public class CustomTradeFactory implements Trades.Factory {
      * @param currencyOne First item the villager will buy. Cannot be null.
      * @param currencyTwo Second item the villager will buy. Nullable.
      */
-    public CustomTradeFactory(ItemStack sellItem, CurrencyItem currencyOne, CurrencyItem currencyTwo) {
+    public CustomTradeFactory(ItemStack sellItem, @Nonnull CurrencyItem currencyOne, @Nullable CurrencyItem currencyTwo) {
         this.sellItem = sellItem;
         this.currencyOne = currencyOne;
         this.currencyTwo = currencyTwo;

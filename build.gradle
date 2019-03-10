@@ -29,6 +29,9 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modCompile "net.fabricmc:fabric:${fabricVersion}"
 
+    // So the javax annotations work.
+    compileOnly "com.google.code.findbugs:jsr305:${findbugsVersion}"
+
     //jankson, the json parser we are using to allow comments
     shadow "blue.endless:jankson:${janksonVersion}"
     implementation "blue.endless:jankson:${janksonVersion}"

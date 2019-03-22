@@ -1,5 +1,7 @@
 package net.lomeli.knit.client.screen.entries;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
 import net.lomeli.knit.client.utils.ClientUtil;
 import net.lomeli.knit.config.types.ConfigField;
@@ -7,6 +9,7 @@ import net.minecraft.client.gui.widget.EntryListWidget;
 
 import java.awt.*;
 
+@Environment(EnvType.CLIENT)
 public abstract class AbstractListEntry<T extends ConfigField> extends EntryListWidget.Entry<AbstractListEntry<?>> {
     private ConfigListWidget parentList;
     private T configEntry;

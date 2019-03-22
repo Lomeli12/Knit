@@ -1,5 +1,7 @@
 package net.lomeli.knit.client.screen.entries;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
 import net.lomeli.knit.client.utils.ClientUtil;
 import net.lomeli.knit.config.types.BooleanConfig;
@@ -10,6 +12,7 @@ import net.minecraft.client.util.Window;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+@Environment(EnvType.CLIENT)
 public class BooleanListEntry extends AbstractListEntry<BooleanConfig> implements ButtonWidget.class_4241 {
     private AtomicBoolean bool;
     private ButtonWidget buttonWidget;

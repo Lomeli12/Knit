@@ -1,5 +1,7 @@
 package net.lomeli.knit.client.screen.entries;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
 import net.lomeli.knit.client.utils.ClientUtil;
 import net.lomeli.knit.config.types.ConfigField;
@@ -9,6 +11,7 @@ import net.minecraft.client.util.Window;
 
 import java.awt.*;
 
+@Environment(EnvType.CLIENT)
 public abstract class TextFieldListEntry<T extends ConfigField> extends AbstractListEntry<T> {
     protected TextFieldWidget textFieldWidget;
 

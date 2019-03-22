@@ -2,6 +2,8 @@ package net.lomeli.knit.client.screen;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.lomeli.knit.client.screen.entries.AbstractListEntry;
 import net.lomeli.knit.client.screen.entries.ConfigListWidget;
@@ -15,6 +17,7 @@ import net.minecraft.text.TranslatableTextComponent;
 
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class ModConfigScreen extends Screen {
     private Screen parent;
     private ConfigFile config;

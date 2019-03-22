@@ -1,5 +1,7 @@
 package net.lomeli.knit.client.screen.entries;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
 import net.lomeli.knit.config.types.*;
 import net.minecraft.client.MinecraftClient;
@@ -7,6 +9,7 @@ import net.minecraft.client.gui.widget.EntryListWidget;
 
 import java.util.Map;
 
+@Environment(EnvType.CLIENT)
 public class ConfigListWidget extends EntryListWidget<AbstractListEntry<?>> {
 
     private AbstractListEntry<?> lastHoveredEntry;

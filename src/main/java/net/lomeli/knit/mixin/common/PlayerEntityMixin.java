@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
 
-    @Inject(method = "update", at = @At("TAIL"))
+    @Inject(method = "tick", at = @At("TAIL"))
     private void playerUpdate(CallbackInfo callback) {
         PlayerTickCallback.EVENT.invoker().updateTick((PlayerEntity) (Object) this);
     }

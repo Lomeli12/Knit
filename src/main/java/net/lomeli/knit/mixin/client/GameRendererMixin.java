@@ -17,7 +17,7 @@ public abstract class GameRendererMixin {
     @Final
     private MinecraftClient client;
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Screen;draw(IIF)V",
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Screen;render(IIF)V",
             shift = At.Shift.AFTER))
     private void gameRender(float partialTicks, long time, boolean idk, CallbackInfo callback) {
         int mouseX = (int) (client.mouse.getX() * (double) client.window.getScaledWidth() / (double) client.window.getWidth());

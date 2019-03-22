@@ -2,13 +2,17 @@
   "id": "knit",
   "name": "Knit",
   "description": "A simple library for Lomeli's Fabric mods.",
-  "version": "1.1.0",
+  "version": "$version",
   "side": "universal",
   "initializers": [
-    "net.lomeli.knit.Knit"
+    "net.lomeli.knit.Knit",
+    "net.lomeli.knit.KnitClient"
   ],
   "requires": {
     "fabric": "*"
+  },
+  "recommended": {
+    "modmenu": "1.1.6"
   },
   "mixins": {
     "client": "knit.client.json",

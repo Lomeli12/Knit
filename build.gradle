@@ -12,7 +12,7 @@ targetCompatibility = 1.8
 
 archivesBaseName = "Knit"
 group = "net.lomeli"
-version = "1.1.0"
+version = "1.2.0"
 
 minecraft {
 }
@@ -35,6 +35,16 @@ dependencies {
     //jankson, the json parser we are using to allow comments
     shadow "blue.endless:jankson:${janksonVersion}"
     implementation "blue.endless:jankson:${janksonVersion}"
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'fabric.mod.json'
+        expand version: project.version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'fabric.mod.json'
+    }
 }
 
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task

@@ -4,8 +4,8 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ClientConnectionMixin",
-    "GameRendererMixin",
     "MinecraftClientMixin",
+    "ScreenMixin",
     "SettingScreenMixin",
     "TextFieldWidgetMixin"
   ],

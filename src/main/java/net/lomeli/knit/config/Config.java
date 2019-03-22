@@ -15,4 +15,6 @@ public @interface Config {
     String category() default "";
 
     String categoryComment() default "";
+
+    boolean hideConfig() default false;
 }

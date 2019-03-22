@@ -19,6 +19,7 @@ minecraft {
 
 repositories {
     maven { url "http://repo.elytradev.com/" }
+    maven { url "http://maven.modmuss50.me/" }
 }
 
 dependencies {
@@ -28,6 +29,7 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modCompile "net.fabricmc:fabric:${fabricVersion}"
+    modCompile "io.github.prospector.modmenu:ModMenu:${modMenuVersion}"
 
     // So the javax annotations work.
     compileOnly "com.google.code.findbugs:jsr305:${findbugsVersion}"

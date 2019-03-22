@@ -5,7 +5,9 @@
   "mixins": [
     "ClientConnectionMixin",
     "GameRendererMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "SettingScreenMixin",
+    "TextFieldWidgetMixin"
   ],
   "injectors": {
     "defaultRequire": 1

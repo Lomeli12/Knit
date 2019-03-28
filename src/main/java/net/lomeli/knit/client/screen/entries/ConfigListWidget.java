@@ -15,8 +15,8 @@ public class ConfigListWidget extends EntryListWidget<AbstractListEntry<?>> {
     private AbstractListEntry<?> lastHoveredEntry;
 
     public ConfigListWidget(ModConfigScreen modConfigScreen, MinecraftClient client) {
-        super(client, modConfigScreen.screenWidth, modConfigScreen.screenHeight , 30,
-                modConfigScreen.screenHeight - 40, 25);
+        super(client, modConfigScreen.width, modConfigScreen.height , 30,
+                modConfigScreen.height - 40, 25);
         for (Map.Entry<String, ConfigField> entry : modConfigScreen.getConfig().getConfigValues().entrySet()) {
             ConfigField field = entry.getValue();
             if (field instanceof IntConfig) {
@@ -31,9 +31,10 @@ public class ConfigListWidget extends EntryListWidget<AbstractListEntry<?>> {
         }
     }
 
+    //scroll bar position
     @Override
-    public int getEntryWidth() {
-        return width - 50;
+    public int method_20078() {
+        return super.method_20078() + 50;
     }
 
     @Override
@@ -41,9 +42,10 @@ public class ConfigListWidget extends EntryListWidget<AbstractListEntry<?>> {
         super.render(int_1, int_2, float_1);
     }
 
+    // item width
     @Override
-    protected int getScrollbarPosition() {
-        return width - 10;
+    public int method_20053() {
+        return 300;
     }
 
     public AbstractListEntry<?> getLastHoveredEntry() {

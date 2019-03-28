@@ -30,8 +30,8 @@ public class IntListEntry extends TextFieldListEntry<IntConfig> {
                 super.addText(stripCharacter.apply(text));
             }
         };
-        textFieldWidget.setText(config.getConfigValue().toString());
         textFieldWidget.setMaxLength(999999);
+        textFieldWidget.setText(config.getConfigValue().toString());
         textFieldWidget.setChangedListener(s -> {
             if (!originalValue.equals(s))
                 parent.setHasChanges(true);

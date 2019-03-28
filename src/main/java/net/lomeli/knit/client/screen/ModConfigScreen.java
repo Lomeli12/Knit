@@ -31,39 +31,39 @@ public class ModConfigScreen extends Screen {
     }
 
     @Override
-    protected void onInitialized() {
-        super.onInitialized();
-        this.configListWidget = new ConfigListWidget(this, client);
-        this.listeners.add(this.configListWidget);
-        this.focusOn(this.configListWidget);
-        this.addButton(new ButtonWidget(this.screenWidth / 2 - 100, this.screenHeight - 25, 200, 20,
+    protected void init() {
+        super.init();
+        this.configListWidget = new ConfigListWidget(this, this.minecraft);
+        this.children.add(this.configListWidget);
+        this.setFocused(this.configListWidget);
+        this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 25, 200, 20,
                 I18n.translate("gui.done"), (buttonWidget) -> {
             if (this.hasChanges) {
                 List<ConfigField> changes = Lists.newArrayList();
-                for (AbstractListEntry entry : this.configListWidget.getInputListeners()) {
+                for (AbstractListEntry entry : this.configListWidget.children()) {
                     entry.save();
                     changes.add(entry.getConfigEntry());
                 }
                 config.readFromArrays(changes);
             }
-            this.client.openScreen(parent);
+            this.minecraft.openScreen(parent);
         }));
     }
 
     @Override
     public void render(int int_1, int int_2, float float_1) {
-        this.drawBackground();
-        this.focusOn(this.configListWidget);
+        this.renderBackground();
+        this.setFocused(this.configListWidget);
         this.configListWidget.render(int_1, int_2, float_1);
-        this.drawStringCentered(this.fontRenderer, this.title.getFormattedText(), this.screenWidth / 2, 15, 0xffffff);
+        this.drawCenteredString(this.font, this.title.getFormattedText(), this.width / 2, 15, 0xffffff);
         super.render(int_1, int_2, float_1);
-        this.drawStringCentered(this.fontRenderer, I18n.translate("screen.knit.mod.config.tooltip"),
-                this.screenWidth / 2, this.screenHeight - 35, 0xffff00);
+        this.drawCenteredString(this.font, I18n.translate("screen.knit.mod.config.tooltip"),
+                this.width / 2, this.height - 35, 0xffff00);
 
         if (this.configListWidget.getLastHoveredEntry() != null) {
             String comment = this.configListWidget.getLastHoveredEntry().getConfigEntry().getComment();
             if (!Strings.isNullOrEmpty(comment) && ClientUtil.safeKeyDown(ClientUtil.LEFT_SHIFT))
-                this.drawTooltip(client.textRenderer.wrapStringToWidthAsList(comment, 150), int_1, int_2);
+                this.renderTooltip(this.minecraft.textRenderer.wrapStringToWidthAsList(comment, 150), int_1, int_2);
         }
     }
 

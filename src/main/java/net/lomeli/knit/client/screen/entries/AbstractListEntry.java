@@ -3,11 +3,8 @@ package net.lomeli.knit.client.screen.entries;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
-import net.lomeli.knit.client.utils.ClientUtil;
 import net.lomeli.knit.config.types.ConfigField;
 import net.minecraft.client.gui.widget.EntryListWidget;
-
-import java.awt.*;
 
 @Environment(EnvType.CLIENT)
 public abstract class AbstractListEntry<T extends ConfigField> extends EntryListWidget.Entry<AbstractListEntry<?>> {
@@ -24,9 +21,8 @@ public abstract class AbstractListEntry<T extends ConfigField> extends EntryList
     }
 
     @Override
-    public void draw(int var1, int var2, int var3, int var4, boolean var5, float var6) {
-        Point point = ClientUtil.getMousePoint();
-        if (this.isMouseOver(point.x, point.y))
+    public void draw(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
+        if (this.isMouseOver(mouseX, mouseY))
             parentList.setLastHoveredEntry(this);
         else if (parentList.getLastHoveredEntry() == this)
             parentList.setLastHoveredEntry(null);

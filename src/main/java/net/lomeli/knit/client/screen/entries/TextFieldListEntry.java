@@ -3,13 +3,9 @@ package net.lomeli.knit.client.screen.entries;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
-import net.lomeli.knit.client.utils.ClientUtil;
 import net.lomeli.knit.config.types.ConfigField;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.util.Window;
-
-import java.awt.*;
 
 @Environment(EnvType.CLIENT)
 public abstract class TextFieldListEntry<T extends ConfigField> extends AbstractListEntry<T> {
@@ -19,8 +15,8 @@ public abstract class TextFieldListEntry<T extends ConfigField> extends Abstract
         super(configScreen, parentList, config);
         this.originalValue = config.getConfigValue();
         this.textFieldWidget = new TextFieldWidget(MinecraftClient.getInstance().textRenderer, 0, 0, 148, 18);
-        textFieldWidget.setText(config.getConfigValue().toString());
         textFieldWidget.setMaxLength(999999);
+        textFieldWidget.setText(config.getConfigValue().toString());
         textFieldWidget.setChangedListener(s -> {
             if (!originalValue.equals(s))
                 configScreen.setHasChanges(true);
@@ -30,23 +26,19 @@ public abstract class TextFieldListEntry<T extends ConfigField> extends Abstract
     public abstract void save();
 
     @Override
-    public void draw(int entryWidth, int height, int var3, int var4, boolean isSelected, float delta) {
+    public void draw(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
         MinecraftClient client = MinecraftClient.getInstance();
-        Window window = client.window;
-        Point mouse = ClientUtil.getMousePoint();
-        ((ITextFieldAccessor) this.textFieldWidget).setWidgetY(this.getY());
+        ((ITextFieldAccessor) this.textFieldWidget).setWidgetY(y);
+        String configName = getConfigEntry().getConfigName();
         if (client.textRenderer.isRightToLeft()) {
-            client.textRenderer.drawWithShadow(this.getConfigEntry().getConfigName(),
-                    window.getScaledWidth() -
-                            client.textRenderer.getStringWidth(this.getConfigEntry().getConfigName()) - getX() - 35,
-                    getY() + 5, 16777215);
-            this.textFieldWidget.setX(getX() + 36);
+            client.textRenderer.drawWithShadow(configName, x + 175, y + 5, 16777215);
+            this.textFieldWidget.setX(x + 15);
         } else {
-            client.textRenderer.drawWithShadow(this.getConfigEntry().getConfigName(), getX() + 35, getY() + 5, 16777215);
-            this.textFieldWidget.setX(window.getScaledWidth() - ((ITextFieldAccessor) this.textFieldWidget).getWidgetWidth() - getX() - 34);
+            client.textRenderer.drawWithShadow(configName, x + 15, y + 5, 16777215);
+            this.textFieldWidget.setX(x + 151);
         }
-        this.textFieldWidget.render(mouse.x, mouse.y, delta);
-        super.draw(entryWidth, height, var3, var4, isSelected, delta);
+        this.textFieldWidget.render(mouseX, mouseY, delta);
+        super.draw(index, x, y, width, height, mouseX, mouseY, mouseOver, delta);
     }
 
     @Override

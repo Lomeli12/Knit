@@ -20,10 +20,10 @@ public abstract class SettingScreenMixin extends Screen {
         super(new TranslatableTextComponent("options.title"));
     }
 
-    @Inject(method = "onInitialized", at = @At("RETURN"))
+    @Inject(method = "init", at = @At("RETURN"))
     private void onInit(CallbackInfo callback) {
         if (ModConfig.displayConfigButton) {
-            this.addButton(new ButtonWidget(this.screenWidth / 2 - 155, this.screenHeight / 6 + 144 - 6, 150, 20,
+            this.addButton(new ButtonWidget(this.width / 2 - 155, this.height / 6 + 144 - 6, 150, 20,
                     I18n.translate("screen.knit.mod.config.edit"), buttonWidget ->
                     MinecraftClient.getInstance().openScreen(new ModListScreen(this))));
         }

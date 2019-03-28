@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.metadata.ModMetadata;
-import net.lomeli.knit.client.utils.ClientUtil;
 import net.lomeli.knit.config.ConfigFile;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Screen;
@@ -13,7 +12,6 @@ import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.TranslatableTextComponent;
 
-import java.awt.*;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -32,28 +30,28 @@ public class ModMultiConfigScreen extends Screen {
     }
 
     @Override
-    protected void onInitialized() {
-        super.onInitialized();
-        this.configListWidget = new ConfigFileListWidget(this, this.client);
-        this.listeners.add(this.configListWidget);
-        this.focusOn(this.configListWidget);
-        this.addButton(new ButtonWidget(this.screenWidth / 2 - 100, this.screenHeight - 25, 200, 20,
-                I18n.translate("gui.done"), (buttonWidget) -> this.client.openScreen(this.parent)));
+    protected void init() {
+        super.init();
+        this.configListWidget = new ConfigFileListWidget(this, this.minecraft);
+        this.children.add(this.configListWidget);
+        this.setFocused(this.configListWidget);
+        this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 25, 200, 20,
+                I18n.translate("gui.done"), (buttonWidget) -> this.minecraft.openScreen(this.parent)));
     }
 
     @Override
     public void render(int int_1, int int_2, float float_1) {
-        this.drawBackground();
+        this.renderBackground();
         this.configListWidget.render(int_1, int_2, float_1);
-        this.drawStringCentered(this.fontRenderer, this.title.getFormattedText(), this.screenWidth / 2, 15, 0xffffff);
+        this.drawCenteredString(this.font, this.title.getFormattedText(), this.width / 2, 15, 0xffffff);
         super.render(int_1, int_2, float_1);
 
     }
 
     private static class ConfigFileListWidget extends EntryListWidget<ConfigFileEntry> {
         private ConfigFileListWidget(ModMultiConfigScreen modMultiConfigScreen, MinecraftClient client) {
-            super(client, modMultiConfigScreen.screenWidth, modMultiConfigScreen.screenHeight , 30,
-                    modMultiConfigScreen.screenHeight - 40, 25);
+            super(client, modMultiConfigScreen.width, modMultiConfigScreen.height, 30,
+                    modMultiConfigScreen.height - 40, 25);
             for (ConfigFile config : modMultiConfigScreen.configs)
                 this.addEntry(new ConfigFileEntry(modMultiConfigScreen, modMultiConfigScreen.modMetadata, config));
         }
@@ -76,11 +74,10 @@ public class ModMultiConfigScreen extends Screen {
         }
 
         @Override
-        public void draw(int var1, int var2, int var3, int var4, boolean isSelected, float delta) {
-            Point mouse = ClientUtil.getMousePoint();
-            openConfigBtn.x = this.getX() + 10;
-            openConfigBtn.y = this.getY();
-            openConfigBtn.render(mouse.x, mouse.y, delta);
+        public void draw(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
+            openConfigBtn.x = x + 10;
+            openConfigBtn.y = y;
+            openConfigBtn.render(mouseX, mouseY, delta);
         }
 
         @Override

@@ -26,7 +26,7 @@ public abstract class MinecraftClientMixin {
     }
 
     @Inject(method = "openScreen", at = @At(shift = At.Shift.AFTER, value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/Screen;initialize(Lnet/minecraft/client/MinecraftClient;II)V"))
+            target = "Lnet/minecraft/client/gui/Screen;init(Lnet/minecraft/client/MinecraftClient;II)V"))
     private void initializeScreen(Screen screen, CallbackInfo callback) {
         PostScreenInitializeCallback.EVENT.invoker().postInitializeScreen(screen);
     }

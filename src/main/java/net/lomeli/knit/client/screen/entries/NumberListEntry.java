@@ -3,7 +3,6 @@ package net.lomeli.knit.client.screen.entries;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
-import net.lomeli.knit.config.types.IntConfig;
 import net.lomeli.knit.config.types.NumberConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -31,8 +30,8 @@ public class NumberListEntry extends TextFieldListEntry<NumberConfig> {
                 super.addText(stripCharacter.apply(text));
             }
         };
-        textFieldWidget.setText(config.getConfigValue().toString());
         textFieldWidget.setMaxLength(999999);
+        textFieldWidget.setText(config.getConfigValue().toString());
         textFieldWidget.setChangedListener(s -> {
             if (!originalValue.equals(s))
                 parent.setHasChanges(true);

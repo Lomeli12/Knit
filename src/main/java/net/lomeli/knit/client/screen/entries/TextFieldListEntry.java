@@ -1,11 +1,15 @@
 package net.lomeli.knit.client.screen.entries;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
 import net.lomeli.knit.config.types.ConfigField;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public abstract class TextFieldListEntry<T extends ConfigField> extends AbstractListEntry<T> {
@@ -26,7 +30,7 @@ public abstract class TextFieldListEntry<T extends ConfigField> extends Abstract
     public abstract void save();
 
     @Override
-    public void draw(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
+    public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
         MinecraftClient client = MinecraftClient.getInstance();
         ((ITextFieldAccessor) this.textFieldWidget).setWidgetY(y);
         String configName = getConfigEntry().getConfigName();
@@ -38,7 +42,7 @@ public abstract class TextFieldListEntry<T extends ConfigField> extends Abstract
             this.textFieldWidget.setX(x + 151);
         }
         this.textFieldWidget.render(mouseX, mouseY, delta);
-        super.draw(index, x, y, width, height, mouseX, mouseY, mouseOver, delta);
+        super.render(index, x, y, width, height, mouseX, mouseY, mouseOver, delta);
     }
 
     @Override
@@ -60,5 +64,10 @@ public abstract class TextFieldListEntry<T extends ConfigField> extends Abstract
         if (textFieldWidget.charTyped(char_1, int_1))
             return true;
         return super.charTyped(char_1, int_1);
+    }
+
+    @Override
+    public List<? extends Element> children() {
+        return ImmutableList.of(textFieldWidget);
     }
 }

@@ -12,6 +12,7 @@ import net.lomeli.knit.utils.Logger;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -30,16 +31,17 @@ public class ConfigFile {
     private String modID;
     private String configName;
     private Class<?> configClass;
-    private boolean clentSide;
+    private boolean clientSide;
+    //TODO: Make method to ensure two config files of the same name aren't made.
     private File configFile;
     private Map<String, ConfigField> configValues;
 
     public ConfigFile(String modID, String configName, Class<?> configClass, boolean clentSide) {
         this.modID = modID;
         this.configName = configName;
-        this.configFile = new File(CONFIG_DIR, String.format("%s.%s", clentSide ? modID + "_client" : modID, CONFIG_EXT));
+        this.configFile = new File(CONFIG_DIR, String.format("%s.%s", clientSide ? modID + "_client" : modID, CONFIG_EXT));
         this.configClass = configClass;
-        this.clentSide = clentSide;
+        this.clientSide = clientSide;
         this.configValues = Maps.newHashMap();
         ConfigManager.getInstance().registerModConfig(this);
     }
@@ -205,10 +207,9 @@ public class ConfigFile {
         }
 
         if (flag) {
-            comment = null;
-            if (!Strings.isNullOrEmpty(details.categoryComment()))
-                comment = details.categoryComment();
-            fileJson.put(category, parent, comment);
+            comment = details.categoryComment();
+            if (!Strings.isNullOrEmpty(comment))
+                fileJson.put(category, parent, comment);
         }
 
         if (!details.hideConfig())
@@ -242,8 +243,8 @@ public class ConfigFile {
         return modID;
     }
 
-    public boolean isClentSide() {
-        return clentSide;
+    public boolean isClientSide() {
+        return clientSide;
     }
 
     public String getConfigFileName() {
@@ -251,7 +252,7 @@ public class ConfigFile {
     }
 
     public String getConfigName() {
-        return configName;
+        return Strings.isNullOrEmpty(configName) ? getConfigFileName() : configName;
     }
 
     public Map<String, ConfigField> getConfigValues() {

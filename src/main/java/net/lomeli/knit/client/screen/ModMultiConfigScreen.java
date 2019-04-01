@@ -1,14 +1,16 @@
 package net.lomeli.knit.client.screen;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.lomeli.knit.config.ConfigFile;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.EntryListWidget;
+import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.TranslatableTextComponent;
 
@@ -48,16 +50,16 @@ public class ModMultiConfigScreen extends Screen {
 
     }
 
-    private static class ConfigFileListWidget extends EntryListWidget<ConfigFileEntry> {
+    private static class ConfigFileListWidget extends ElementListWidget<ConfigFileEntry> {
         private ConfigFileListWidget(ModMultiConfigScreen modMultiConfigScreen, MinecraftClient client) {
             super(client, modMultiConfigScreen.width, modMultiConfigScreen.height, 30,
                     modMultiConfigScreen.height - 40, 25);
             for (ConfigFile config : modMultiConfigScreen.configs)
-                this.addEntry(new ConfigFileEntry(modMultiConfigScreen, modMultiConfigScreen.modMetadata, config));
+                this.addItem(new ConfigFileEntry(modMultiConfigScreen, modMultiConfigScreen.modMetadata, config));
         }
     }
 
-    private static class ConfigFileEntry extends EntryListWidget.Entry<ConfigFileEntry> implements ButtonWidget.class_4241 {
+    private static class ConfigFileEntry extends ElementListWidget.ElementItem<ConfigFileEntry> implements ButtonWidget.PressAction {
         private ButtonWidget openConfigBtn;
         private final ModMetadata modMetadata;
         private final ConfigFile configFile;
@@ -74,10 +76,15 @@ public class ModMultiConfigScreen extends Screen {
         }
 
         @Override
-        public void draw(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
+        public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
             openConfigBtn.x = x + 10;
             openConfigBtn.y = y;
             openConfigBtn.render(mouseX, mouseY, delta);
+        }
+
+        @Override
+        public List<? extends Element> children() {
+            return ImmutableList.of(openConfigBtn);
         }
 
         @Override

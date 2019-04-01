@@ -4,7 +4,7 @@
   "screen.knit.mod.config.multi": "%s Config Files",
   "screen.knit.mod.config.btn.click": "Click to edit config.",
   "screen.knit.mod.config.tooltip": "Hold <Left Shift> over config for descriptions.",
-  "config.knit.common": "Common Config (Server + Client)",
+  "config.knit.common": "Common Config",
   "config.knit.client": "Client-Only Configs",
   "config.knit.server": "Server-Only Configs"
 }

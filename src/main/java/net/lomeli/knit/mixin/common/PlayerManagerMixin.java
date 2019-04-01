@@ -20,7 +20,7 @@ public abstract class PlayerManagerMixin {
         PlayerLoginCallback.EVENT.invoker().onPlayerLoggedIn(connection, player);
     }
 
-    @Inject(method = "method_14556", at = @At("TAIL"))
+    @Inject(method = "respawnPlayer", at = @At("TAIL"))
     private void onPlayerRespawned(ServerPlayerEntity player, DimensionType dimType, boolean keepEverything,
                                    CallbackInfoReturnable<ServerPlayerEntity> callback) {
         PlayerRespawnCallback.EVENT.invoker().onPlayerRespawned(player, callback.getReturnValue(), dimType, keepEverything);

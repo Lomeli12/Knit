@@ -1,40 +1,44 @@
 package net.lomeli.knit.client.screen.entries;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
 import net.lomeli.knit.config.types.BooleanConfig;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
-public class BooleanListEntry extends AbstractListEntry<BooleanConfig> implements ButtonWidget.class_4241 {
+public class BooleanListEntry extends AbstractListEntry<BooleanConfig> implements ButtonWidget.PressAction {
     private boolean value;
-    private ButtonWidget buttonWidget;
+    private ButtonWidget valueToggle;
 
     public BooleanListEntry(ModConfigScreen parentScreen, ConfigListWidget parentList, BooleanConfig config) {
         super(parentScreen, parentList, config);
         this.originalValue = config.getConfigValue();
         this.value = config.getConfigValue();
-        this.buttonWidget = new ButtonWidget(0, 0, 150, 20, "", this);
+        this.valueToggle = new ButtonWidget(0, 0, 150, 20, "", this);
     }
 
     @Override
-    public void draw(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
+    public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
         MinecraftClient client = MinecraftClient.getInstance();
-        this.buttonWidget.y = y;
+        this.valueToggle.y = y;
         String btnText = String.valueOf(value);
-        this.buttonWidget.setMessage(btnText.substring(0, 1).toUpperCase() + btnText.substring(1));
+        this.valueToggle.setMessage(btnText.substring(0, 1).toUpperCase() + btnText.substring(1));
         String configName = getConfigEntry().getConfigName();
         if (client.textRenderer.isRightToLeft()) {
             client.textRenderer.drawWithShadow(configName, x + 175, y + 5, 16777215);
-            this.buttonWidget.x = x + 14;
+            this.valueToggle.x = x + 14;
         } else {
             client.textRenderer.drawWithShadow(configName, x + 15, y + 5, 16777215);
-            this.buttonWidget.x = x + 150;
+            this.valueToggle.x = x + 150;
         }
-        buttonWidget.render(mouseX, mouseY, delta);
-        super.draw(index, x, y, width, height, mouseX, mouseY, mouseOver, delta);
+        valueToggle.render(mouseX, mouseY, delta);
+        super.render(index, x, y, width, height, mouseX, mouseY, mouseOver, delta);
     }
 
     @Override
@@ -50,9 +54,7 @@ public class BooleanListEntry extends AbstractListEntry<BooleanConfig> implement
     }
 
     @Override
-    public boolean mouseClicked(double double_1, double double_2, int int_1) {
-        if (buttonWidget.mouseClicked(double_1, double_2, int_1))
-            return true;
-        return super.mouseClicked(double_1, double_2, int_1);
+    public List<? extends Element> children() {
+        return ImmutableList.of(valueToggle);
     }
 }

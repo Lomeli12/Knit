@@ -4,10 +4,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.lomeli.knit.client.screen.ModConfigScreen;
 import net.lomeli.knit.config.types.ConfigField;
-import net.minecraft.client.gui.widget.EntryListWidget;
+import net.minecraft.client.gui.widget.ElementListWidget;
 
 @Environment(EnvType.CLIENT)
-public abstract class AbstractListEntry<T extends ConfigField> extends EntryListWidget.Entry<AbstractListEntry<?>> {
+public abstract class AbstractListEntry<T extends ConfigField> extends ElementListWidget.ElementItem<AbstractListEntry<?>> {
     private ConfigListWidget parentList;
     private T configEntry;
     protected Object originalValue;
@@ -21,7 +21,7 @@ public abstract class AbstractListEntry<T extends ConfigField> extends EntryList
     }
 
     @Override
-    public void draw(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
+    public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean mouseOver, float delta) {
         if (this.isMouseOver(mouseX, mouseY))
             parentList.setLastHoveredEntry(this);
         else if (parentList.getLastHoveredEntry() == this)

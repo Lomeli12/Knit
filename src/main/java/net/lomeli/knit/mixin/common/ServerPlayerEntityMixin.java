@@ -17,7 +17,7 @@ public abstract class ServerPlayerEntityMixin {
         PlayerDeathCallback.EVENT.invoker().onPlayerDeath((ServerPlayerEntity) (Object) this, source);
     }
 
-    @Inject(method = "method_14203", at = @At("HEAD"))
+    @Inject(method = "copyFrom", at = @At("HEAD"))
     private void clonePlayer(ServerPlayerEntity oldPlayer, boolean switchingDim, CallbackInfo callback) {
         ClonePlayerCallback.EVENT.invoker().clonePlayer((ServerPlayerEntity) (Object) this, oldPlayer, switchingDim);
     }

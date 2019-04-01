@@ -60,7 +60,7 @@ public class ModMultiConfigScreen extends Screen {
     }
 
     private static class ConfigFileEntry extends ElementListWidget.ElementItem<ConfigFileEntry> implements ButtonWidget.PressAction {
-        private ButtonWidget openConfigBtn;
+        private ConfigButtonWidget openConfigBtn;
         private final ModMetadata modMetadata;
         private final ConfigFile configFile;
         private final ModMultiConfigScreen parentScreen;
@@ -72,7 +72,7 @@ public class ModMultiConfigScreen extends Screen {
             String name = I18n.translate(configFile.getConfigName());
             if (Strings.isNullOrEmpty(name))
                 name = configFile.getConfigFileName();
-            this.openConfigBtn = new ButtonWidget(0, 0, 200, 20, name, this);
+            this.openConfigBtn = new ConfigButtonWidget(0, 0, 200, 20, name, this);
         }
 
         @Override
@@ -80,6 +80,7 @@ public class ModMultiConfigScreen extends Screen {
             openConfigBtn.x = x + 10;
             openConfigBtn.y = y;
             openConfigBtn.render(mouseX, mouseY, delta);
+            openConfigBtn.renderIcon(configFile, x, y);
         }
 
         @Override

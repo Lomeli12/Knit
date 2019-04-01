@@ -9,6 +9,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.lomeli.knit.Knit;
 import net.lomeli.knit.config.types.*;
 import net.lomeli.knit.utils.Logger;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -36,7 +38,10 @@ public class ConfigFile {
     private File configFile;
     private Map<String, ConfigField> configValues;
 
-    public ConfigFile(String modID, String configName, Class<?> configClass, boolean clentSide) {
+    private Identifier iconIdentifier;
+    private ItemStack itemIcon = ItemStack.EMPTY;
+
+    public ConfigFile(String modID, String configName, Class<?> configClass, boolean clientSide) {
         this.modID = modID;
         this.configName = configName;
         this.configFile = new File(CONFIG_DIR, String.format("%s.%s", clientSide ? modID + "_client" : modID, CONFIG_EXT));
@@ -46,8 +51,8 @@ public class ConfigFile {
         ConfigManager.getInstance().registerModConfig(this);
     }
 
-    public ConfigFile(String modID, Class<?> configClass, boolean clentSide) {
-        this(modID, null, configClass, clentSide);
+    public ConfigFile(String modID, Class<?> configClass, boolean clientSide) {
+        this(modID, null, configClass, clientSide);
     }
 
     public ConfigFile(String modID, String configName, Class<?> configClass) {
@@ -56,6 +61,38 @@ public class ConfigFile {
 
     public ConfigFile(String modID, Class<?> configClass) {
         this(modID, configClass, false);
+    }
+
+    /**
+     * Sets the sprite to be rendered next to the config button.
+     * <br\><br\>
+     * Remember to register the texture client-side using ClientSpriteRegistryCallback.
+     * Otherwise the missing texture icon will be shown.
+     * <br\><br\>
+     * Setting this overrides ItemStack {@link #setIcon(ItemStack)}.
+     * <br\><br\>
+     * This is overridden by having square icon at assets/&lt;mod id&gt;/icon.png.
+     * This will be used if the mod is using multiple configs
+     *
+     * @param identifier
+     */
+    public void setIcon(Identifier identifier) {
+        this.iconIdentifier = identifier;
+    }
+
+    /**
+     * Item to be rendered next to config button.
+     * <br\><br\>
+     * This is overridden by {@link #setIcon(Identifier)}
+     * <br\><br\>
+     * This is overridden by having square icon at assets/&lt;mod id&gt;/icon.png.
+     * This will be used if the mod is using multiple configs
+     *
+     * @param stack
+     */
+    public void setIcon(@Nonnull ItemStack stack) {
+        if (stack != null)
+            this.itemIcon = stack;
     }
 
     public void setConfigFileName(String name) {
@@ -257,5 +294,13 @@ public class ConfigFile {
 
     public Map<String, ConfigField> getConfigValues() {
         return configValues;
+    }
+
+    public Identifier getIconIdentifier() {
+        return iconIdentifier;
+    }
+
+    public ItemStack getItemIcon() {
+        return itemIcon;
     }
 }

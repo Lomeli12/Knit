@@ -61,15 +61,14 @@ public class ModListScreen extends Screen {
 
     private static class ModEntry extends ElementListWidget.ElementItem<ModEntry> implements ButtonWidget.PressAction {
         private ConfigButtonWidget openConfigBtn;
-        private ButtonWidget openConfigBtn;
         private final ModMetadata modMetadata;
         private final ModListScreen parentScreen;
 
         private ModEntry(ModListScreen parentScreen, ModMetadata modMetadata) {
             this.modMetadata = modMetadata;
             this.parentScreen = parentScreen;
-            this.openConfigBtn = new ButtonWidget(0, 0,
-                    200, 20, Strings.isNullOrEmpty(modMetadata.getName()) ? modMetadata.getId() : modMetadata.getName(), this);
+            this.openConfigBtn = new ConfigButtonWidget(0, 0,
+                    200, 20, Strings.isNullOrEmpty(modMetadata.getName()) ? modMetadata.getId() : modMetadata.getName(),
                     this, modMetadata);
         }
 
@@ -79,9 +78,8 @@ public class ModListScreen extends Screen {
             openConfigBtn.y = y;
             openConfigBtn.render(mouseX, mouseY, delta);
 
-            GlStateManager.pushMatrix();
-            GlStateManager.color4f(1f, 1f, 1f, 1f);
-            GlStateManager.popMatrix();
+            ConfigFile config = ConfigManager.getInstance().getModConfigs(modMetadata.getId()).get(0);
+            openConfigBtn.renderIcon(config, x, y);
         }
 
         @Override

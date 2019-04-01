@@ -5,7 +5,6 @@ import blue.endless.jankson.JsonObject;
 import blue.endless.jankson.impl.SyntaxError;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
-import net.fabricmc.loader.api.FabricLoader;
 import net.lomeli.knit.Knit;
 import net.lomeli.knit.config.types.*;
 import net.lomeli.knit.utils.Logger;
@@ -27,14 +26,11 @@ import java.util.Map;
 public class ConfigFile {
     private static final Logger CONFIG_LOG = new Logger(Knit.MOD_NAME + "/Config");
     private static final Jankson JANKSON = Jankson.builder().build();
-    private static final File CONFIG_DIR = FabricLoader.getInstance().getConfigDirectory();
-    private static final String CONFIG_EXT = "conf";
 
     private String modID;
     private String configName;
     private Class<?> configClass;
     private boolean clientSide;
-    //TODO: Make method to ensure two config files of the same name aren't made.
     private File configFile;
     private Map<String, ConfigField> configValues;
 
@@ -44,7 +40,7 @@ public class ConfigFile {
     public ConfigFile(String modID, String configName, Class<?> configClass, boolean clientSide) {
         this.modID = modID;
         this.configName = configName;
-        this.configFile = new File(CONFIG_DIR, String.format("%s.%s", clientSide ? modID + "_client" : modID, CONFIG_EXT));
+        this.configFile = ConfigManager.getInstance().createUniqueConfigFile(modID, clientSide);
         this.configClass = configClass;
         this.clientSide = clientSide;
         this.configValues = Maps.newHashMap();
@@ -96,13 +92,15 @@ public class ConfigFile {
     }
 
     public void setConfigFileName(String name) {
-        this.configFile = new File(CONFIG_DIR,
-                FilenameUtils.getBaseName(name).equalsIgnoreCase(CONFIG_EXT) ? name : name + ".conf");
+        name = FilenameUtils.getExtension(name).equalsIgnoreCase(ConfigManager.CONFIG_EXT) ?
+                FilenameUtils.removeExtension(name) : name;
+        name = ConfigManager.getInstance().ensureUniqueName(name, 0);
+        this.configFile = new File(ConfigManager.CONFIG_DIR, name + ".conf");
     }
 
     public void loadConfig() {
         CONFIG_LOG.info("Loading config for {}.", modID);
-        if (!CONFIG_DIR.exists() || !configFile.exists() || !configFile.isFile()) {
+        if (!ConfigManager.CONFIG_DIR.exists() || !configFile.exists() || !configFile.isFile()) {
             CONFIG_LOG.info("Creating config for {}.", modID);
             saveConfig();
         }
@@ -190,8 +188,8 @@ public class ConfigFile {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public void saveConfig() {
-        if (!CONFIG_DIR.exists())
-            CONFIG_DIR.mkdir();
+        if (!ConfigManager.CONFIG_DIR.exists())
+            ConfigManager.CONFIG_DIR.mkdir();
 
         JsonObject parent = new JsonObject();
         Field[] fields = configClass.getDeclaredFields();

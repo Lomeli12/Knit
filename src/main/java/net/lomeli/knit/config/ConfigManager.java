@@ -6,11 +6,14 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 
+import java.io.File;
 import java.util.*;
 
 public class ConfigManager {
-    private static ConfigManager INSTANCE;
+    static final File CONFIG_DIR = FabricLoader.getInstance().getConfigDirectory();
+    static final String CONFIG_EXT = "conf";
 
+    private static ConfigManager INSTANCE;
     private final Map<ModMetadata, List<ConfigFile>> MOD_CONFIGS;
 
     public static ConfigManager getInstance() {
@@ -38,8 +41,8 @@ public class ConfigManager {
         return Collections.unmodifiableList(new ArrayList<>(MOD_CONFIGS.keySet()));
     }
 
-    public List<ConfigFile> getModConfigs(String modid) {
-        Optional<ModContainer> optionalModContainer = FabricLoader.getInstance().getModContainer(modid);
+    public List<ConfigFile> getModConfigs(String modID) {
+        Optional<ModContainer> optionalModContainer = FabricLoader.getInstance().getModContainer(modID);
         if (optionalModContainer.isPresent()) {
             ModMetadata metadata = optionalModContainer.get().getMetadata();
             if (MOD_CONFIGS.containsKey(metadata))
@@ -50,5 +53,24 @@ public class ConfigManager {
 
     public Map<ModMetadata, List<ConfigFile>> getModConfigs() {
         return Collections.unmodifiableMap(MOD_CONFIGS);
+    }
+
+    public File createUniqueConfigFile(String modID, boolean isClient) {
+        String fileName = modID;
+        if (isClient) fileName += "_client";
+        fileName = ensureUniqueName(fileName, 0);
+        return new File(CONFIG_DIR, String.format("%s.%s", fileName, CONFIG_EXT));
+    }
+
+    public String ensureUniqueName(String baseName, int count) {
+        String name = String.format("%s_%s", baseName, count);
+        for (List<ConfigFile> configList : MOD_CONFIGS.values()) {
+            for (ConfigFile config : configList) {
+                String fileName = config.getConfigFileName();
+                if (fileName.equals(name))
+                    return ensureUniqueName(baseName, count + 1);
+            }
+        }
+        return name;
     }
 }

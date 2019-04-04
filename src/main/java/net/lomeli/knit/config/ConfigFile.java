@@ -94,7 +94,7 @@ public class ConfigFile {
     public void setConfigFileName(String name) {
         name = FilenameUtils.getExtension(name).equalsIgnoreCase(ConfigManager.CONFIG_EXT) ?
                 FilenameUtils.removeExtension(name) : name;
-        name = ConfigManager.getInstance().ensureUniqueName(name, 0);
+        name = ConfigManager.getInstance().ensureUniqueName(name, -1);
         this.configFile = new File(ConfigManager.CONFIG_DIR, name + ".conf");
     }
 

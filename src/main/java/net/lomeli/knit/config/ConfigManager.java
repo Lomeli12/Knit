@@ -58,12 +58,12 @@ public class ConfigManager {
     public File createUniqueConfigFile(String modID, boolean isClient) {
         String fileName = modID;
         if (isClient) fileName += "_client";
-        fileName = ensureUniqueName(fileName, 0);
+        fileName = ensureUniqueName(fileName, -1);
         return new File(CONFIG_DIR, String.format("%s.%s", fileName, CONFIG_EXT));
     }
 
     public String ensureUniqueName(String baseName, int count) {
-        String name = String.format("%s_%s", baseName, count);
+        String name = count == -1 ? baseName : String.format("%s_%s", baseName, count);
         for (List<ConfigFile> configList : MOD_CONFIGS.values()) {
             for (ConfigFile config : configList) {
                 String fileName = config.getConfigFileName();

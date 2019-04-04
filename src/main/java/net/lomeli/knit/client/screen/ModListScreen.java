@@ -90,17 +90,21 @@ public class ModListScreen extends Screen {
         }
 
         @Override
-        public void onPress(ButtonWidget var1) {
-            List<ConfigFile> configs = ConfigManager.getInstance().getModConfigs(modMetadata.getId());
-            if (configs.size() == 1)
-                MinecraftClient.getInstance().openScreen(new ModConfigScreen(parentScreen, modMetadata, configs.get(0)));
-            else if (configs.size() > 1)
-                MinecraftClient.getInstance().openScreen(new ModMultiConfigScreen(parentScreen, modMetadata, configs));
+        public void onPress(ButtonWidget buttonWidget) {
+            openModConfigScreen(parentScreen, modMetadata);
         }
 
         @Override
         public List<? extends Element> children() {
             return ImmutableList.of(openConfigBtn);
         }
+    }
+
+    public static void openModConfigScreen(Screen parentScreen, ModMetadata modMetadata) {
+        List<ConfigFile> configs = ConfigManager.getInstance().getModConfigs(modMetadata.getId());
+        if (configs.size() == 1)
+            MinecraftClient.getInstance().openScreen(new ModConfigScreen(parentScreen, modMetadata, configs.get(0)));
+        else if (configs.size() > 1)
+            MinecraftClient.getInstance().openScreen(new ModMultiConfigScreen(parentScreen, modMetadata, configs));
     }
 }

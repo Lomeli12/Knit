@@ -21,7 +21,7 @@ public class NumberListEntry extends TextFieldListEntry<NumberConfig> {
         return builder.toString();
     };
 
-    public NumberListEntry(ModConfigScreen parent, ConfigListWidget parentList, NumberConfig config) {
+    NumberListEntry(ModConfigScreen parent, ConfigListWidget parentList, NumberConfig config) {
         super(parent, parentList, config);
         this.originalValue = config.getConfigValue();
         this.textFieldWidget = new TextFieldWidget(MinecraftClient.getInstance().textRenderer, 0, 0, 148, 18) {

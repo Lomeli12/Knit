@@ -83,10 +83,10 @@ public class ModListScreen extends Screen {
         }
 
         @Override
-        public boolean mouseClicked(double double_1, double double_2, int int_1) {
-            if (openConfigBtn.mouseClicked(double_1, double_2, int_1))
+        public boolean mouseClicked(double mouseX, double mouseY, int int_1) {
+            if (openConfigBtn.mouseClicked(mouseX, mouseY, int_1))
                 return true;
-            return super.mouseClicked(double_1, double_2, int_1);
+            return super.mouseClicked(mouseX, mouseY, int_1);
         }
 
         @Override

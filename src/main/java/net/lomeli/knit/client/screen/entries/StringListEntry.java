@@ -8,7 +8,7 @@ import net.lomeli.knit.config.types.StringConfig;
 @Environment(EnvType.CLIENT)
 public class StringListEntry extends TextFieldListEntry<StringConfig> {
 
-    public StringListEntry(ModConfigScreen parent, ConfigListWidget parentList, StringConfig config) {
+    StringListEntry(ModConfigScreen parent, ConfigListWidget parentList, StringConfig config) {
         super(parent, parentList, config);
     }
 

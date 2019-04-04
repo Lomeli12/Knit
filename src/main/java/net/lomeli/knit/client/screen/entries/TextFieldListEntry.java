@@ -13,7 +13,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public abstract class TextFieldListEntry<T extends ConfigField> extends AbstractListEntry<T> {
-    protected TextFieldWidget textFieldWidget;
+    TextFieldWidget textFieldWidget;
 
     protected TextFieldListEntry(ModConfigScreen configScreen, ConfigListWidget parentList, T config) {
         super(configScreen, parentList, config);

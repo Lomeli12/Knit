@@ -16,7 +16,7 @@ public class BooleanListEntry extends AbstractListEntry<BooleanConfig> implement
     private boolean value;
     private ButtonWidget valueToggle;
 
-    public BooleanListEntry(ModConfigScreen parentScreen, ConfigListWidget parentList, BooleanConfig config) {
+    BooleanListEntry(ModConfigScreen parentScreen, ConfigListWidget parentList, BooleanConfig config) {
         super(parentScreen, parentList, config);
         this.originalValue = config.getConfigValue();
         this.value = config.getConfigValue();

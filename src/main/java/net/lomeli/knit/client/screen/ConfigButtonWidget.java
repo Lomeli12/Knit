@@ -39,11 +39,11 @@ class ConfigButtonWidget extends ButtonWidget {
         GlStateManager.color4f(1f, 1f, 1f, 1f);
         if (modIcon != null) {
             MC.getTextureManager().bindTexture(modIconLocation);
-            blit(x + 15, y + 2, 0f, 0f, 16, 16, 16f, 16f);
+            blit(x + 15, y + 2, 0f, 0f, 16, 16, 16, 16);
         } else if (config.getIconIdentifier() != null) {
             Sprite configIcon = MC.getSpriteAtlas().getSprite(config.getIconIdentifier());
             MC.getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEX);
-            blit(x + 15, y + 2, configIcon, 16, 16);
+            blit(x + 15, y + 2, this.blitOffset, 16, 16, configIcon);
         } else if (!config.getItemIcon().isEmpty()) {
             MC.getItemRenderer().renderGuiItem(config.getItemIcon(), x + 15, y + 2);
         }

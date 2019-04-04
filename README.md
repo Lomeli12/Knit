@@ -20,7 +20,7 @@ Add Knit to your dependencies:
 
 ```groovy
 dependencies {
-	modCompile "net.lomeli:Knit:19w12b-1.2.0"
+	modCompile "net.lomeli:Knit:19w14a-1.3.0"
 }
 ```
 
